@@ -1,0 +1,1026 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMME - Criador de Currículos</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #faf9ff;
+    color: #29213b;
+}
+
+header {
+    background: white;
+    padding: 22px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 15px #32145a10;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: #5424a8;
+}
+
+.logo span {
+    color: #a77aff;
+}
+
+nav {
+    display: flex;
+    gap: 30px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #5d536c;
+    font-size: 14px;
+}
+
+.btn-login {
+    background: #7136bd;
+    color: white;
+    padding: 11px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+main {
+    padding: 55px 8%;
+}
+
+.introducao {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 45px;
+}
+
+.tag {
+    color: #793dc4;
+    background: #eee4ff;
+    padding: 9px 17px;
+    border-radius: 30px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.introducao h1 {
+    font-size: 40px;
+    margin-top: 25px;
+    line-height: 1.2;
+}
+
+.introducao h1 span {
+    color: #793dc4;
+}
+
+.introducao p {
+    color: #81778e;
+    margin-top: 18px;
+    line-height: 1.7;
+}
+
+/* MODELOS */
+
+.selecao-modelos {
+    max-width: 1100px;
+    margin: auto auto 40px;
+}
+
+.selecao-modelos h2 {
+    text-align: center;
+    color: #4d2487;
+    margin-bottom: 10px;
+}
+
+.selecao-modelos > p {
+    text-align: center;
+    color: #958a9f;
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+.modelos {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
+.modelo {
+    width: 100%;
+    min-width: 0;
+    background: white;
+    border: 2px solid #eee7f8;
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    text-align: center;
+    transition: .3s;
+}
+
+.modelo:hover {
+    border-color: #a77aff;
+    transform: translateY(-3px);
+}
+
+.modelo.ativo {
+    border-color: #793dc4;
+    background: #f8f2ff;
+}
+
+.modelo h3 {
+    color: #5424a8;
+    margin-bottom: 8px;
+}
+
+.modelo p {
+    font-size: 13px;
+    color: #81778e;
+}
+
+.amostra {
+    height: 100px;
+    width: 75px;
+    margin: 0 auto 15px;
+    background: white;
+    border: 1px solid #ddd;
+    padding: 12px 7px;
+    box-shadow: 0 3px 8px #00000010;
+}
+
+.amostra span {
+    display: block;
+    height: 5px;
+    background: #7136bd;
+    margin-bottom: 7px;
+}
+
+.amostra i {
+    display: block;
+    height: 3px;
+    background: #ddd;
+    margin-bottom: 5px;
+}
+
+.amostra.moderno {
+    border-top: 9px solid #7136bd;
+}
+
+.amostra.moderno span {
+    background: #a77aff;
+}
+
+.amostra.minimalista {
+    border: none;
+    box-shadow: none;
+}
+
+.amostra.minimalista span {
+    background: #444;
+}
+
+.amostra.ats {
+    border: 1px solid #ccc;
+    box-shadow: none;
+}
+
+.amostra.ats span {
+    background: #222;
+}
+
+/* FORMULÁRIO */
+
+.container {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 30px;
+    max-width: 1100px;
+    margin: auto;
+    align-items: start;
+}
+
+.formulario {
+    background: white;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 5px 30px #50288212;
+}
+
+.formulario h2 {
+    color: #4d2487;
+}
+
+.subtitulo {
+    color: #958a9f;
+    font-size: 14px;
+    margin: 8px 0 30px;
+}
+
+form h3 {
+    font-size: 16px;
+    color: #7236b6;
+    margin: 28px 0 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #eee7f8;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+    margin-bottom: 18px;
+}
+
+.campo label {
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 9px;
+    color: #51445f;
+}
+
+.campo input,
+.campo textarea {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #e6deef;
+    background: #fcfaff;
+    border-radius: 8px;
+    outline: none;
+    font-size: 13px;
+}
+
+.campo input:focus,
+.campo textarea:focus {
+    border-color: #8444cf;
+    box-shadow: 0 0 0 3px #eee2ff;
+}
+
+.campo textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.linha {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-criar {
+    width: 100%;
+    padding: 16px;
+    margin-top: 15px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, #7136bd, #9b58df);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+}
+
+.destaque {
+    background: linear-gradient(145deg, #57239d, #8d4ed0);
+    color: white;
+    padding: 35px;
+    border-radius: 15px;
+    position: sticky;
+    top: 25px;
+}
+
+.destaque .icone {
+    font-size: 40px;
+    color: #e2c5ff;
+    margin-bottom: 25px;
+}
+
+.destaque h2 {
+    font-size: 27px;
+    line-height: 1.4;
+    margin-bottom: 18px;
+}
+
+.destaque p {
+    color: #e5d5f5;
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+.beneficio {
+    margin-top: 18px;
+    font-size: 14px;
+}
+
+/* RESULTADO */
+
+#resultado {
+    display: none;
+    max-width: 900px;
+    margin: 50px auto;
+}
+
+.topo-resultado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.topo-resultado h2 {
+    color: #5424a8;
+}
+
+.botoes {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.botoes button {
+    padding: 12px 18px;
+    border-radius: 8px;
+    background: #7136bd;
+    color: white;
+    cursor: pointer;
+    border: none;
+}
+
+.botoes .secundario {
+    background: #e9def7;
+    color: #5424a8;
+}
+
+/* CURRÍCULO BASE */
+
+.curriculo {
+    background: white;
+    min-height: 800px;
+    padding: 55px;
+    box-shadow: 0 5px 25px #00000012;
+    color: #333;
+    overflow-wrap: anywhere;
+}
+
+.curriculo h1 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.curriculo h2 {
+    font-size: 17px;
+    margin: 25px 0 10px;
+    padding-bottom: 7px;
+}
+
+.curriculo p {
+    font-size: 14px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.curriculo .contato {
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+/* CLÁSSICO */
+
+.curriculo.classico {
+    border-top: 8px solid #5424a8;
+}
+
+.curriculo.classico h1,
+.curriculo.classico h2 {
+    color: #5424a8;
+}
+
+.curriculo.classico h2 {
+    border-bottom: 1px solid #ddd;
+}
+
+/* MODERNO */
+
+.curriculo.moderno {
+    border-left: 12px solid #7136bd;
+}
+
+.curriculo.moderno h1 {
+    color: #7136bd;
+    font-size: 34px;
+}
+
+.curriculo.moderno h2 {
+    color: white;
+    background: #7136bd;
+    padding: 9px 12px;
+    border-radius: 4px;
+}
+
+/* MINIMALISTA */
+
+.curriculo.minimalista {
+    border-top: 2px solid #333;
+}
+
+.curriculo.minimalista h1 {
+    color: #222;
+    font-weight: normal;
+    letter-spacing: 2px;
+}
+
+.curriculo.minimalista h2 {
+    color: #333;
+    border-bottom: 1px solid #aaa;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ATS */
+
+.curriculo.ats {
+    background: white;
+    color: #111;
+    border: none;
+    padding: 45px;
+    box-shadow: none;
+    font-family: Arial, sans-serif;
+}
+
+.curriculo.ats h1 {
+    color: #111;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: normal;
+    margin-bottom: 8px;
+}
+
+.curriculo.ats h2 {
+    color: #111;
+    background: transparent;
+    border-radius: 0;
+    border-bottom: 1px solid #777;
+    padding: 0 0 6px;
+    margin-top: 22px;
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: normal;
+}
+
+.curriculo.ats p {
+    color: #222;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.curriculo.ats .contato {
+    font-size: 12px;
+}
+
+/* RODAPÉ */
+
+footer {
+    text-align: center;
+    padding: 25px;
+    background: white;
+    color: #91869f;
+    font-size: 13px;
+}
+
+/* RESPONSIVIDADE */
+
+@media(max-width: 800px) {
+    header {
+        padding: 20px 5%;
+    }
+
+    nav {
+        display: none;
+    }
+
+    main {
+        padding: 40px 5%;
+    }
+
+    .introducao h1 {
+        font-size: 32px;
+    }
+
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    .modelos {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .linha {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .formulario {
+        padding: 23px;
+    }
+
+    .destaque {
+        position: static;
+    }
+
+    .curriculo {
+        padding: 25px;
+    }
+}
+
+@media(max-width: 450px) {
+    .modelos {
+        grid-template-columns: 1fr;
+    }
+
+    .curriculo {
+        padding: 20px;
+    }
+
+    .topo-resultado {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+/* IMPRESSÃO */
+
+@media print {
+    @page {
+        size: A4;
+        margin: 15mm;
+    }
+
+    body * {
+        visibility: hidden !important;
+    }
+
+    #resultado,
+    #curriculo,
+    #curriculo * {
+        visibility: visible !important;
+    }
+
+    #resultado {
+        display: block !important;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+    }
+
+    #curriculo {
+        position: static;
+        width: 100%;
+        min-height: 0;
+        padding: 0;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    .topo-resultado,
+    footer,
+    header {
+        display: none !important;
+    }
+
+    .curriculo h2 {
+        break-after: avoid;
+    }
+
+    .curriculo p {
+        orphans: 3;
+        widows: 3;
+    }
+
+    .curriculo.ats {
+        font-family: Arial, sans-serif !important;
+        color: #000 !important;
+        background: #fff !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+
+    .curriculo.ats h1,
+    .curriculo.ats h2,
+    .curriculo.ats p {
+        color: #000 !important;
+        background: transparent !important;
+    }
+
+    .curriculo.ats h2 {
+        border-bottom: 1px solid #777;
+    }
+
+    .curriculo.ats p {
+        font-size: 11pt;
+    }
+}
+</style>
+</head>
+<body>
+    
+<header>
+    <div class="logo">BMME<span>.</span></div>
+
+    <nav>
+        <a href="#">Início</a>
+        <a href="#modelos">Modelos</a>
+        <a href="#formulario">Criar currículo</a>
+    </nav>
+
+    <button class="btn-login" type="button">Entrar</button>
+</header>
+
+<main>
+
+<section class="introducao">
+    <span class="tag">SEU FUTURO COMEÇA AQUI</span>
+
+    <h1>
+        Crie seu currículo<br>
+        <span>e conquiste oportunidades.</span>
+    </h1>
+
+    <p>
+        Escolha seu modelo favorito, preencha seus dados
+        e crie um currículo profissional gratuitamente.
+    </p>
+</section>
+
+<section class="selecao-modelos" id="modelos">
+
+    <h2>Escolha seu modelo de currículo</h2>
+    <p>Selecione o visual que mais combina com você.</p>
+
+    <div class="modelos">
+
+        <div class="modelo ativo" data-modelo="classico">
+            <div class="amostra">
+                <span></span>
+                <i></i><i></i><i></i>
+                <span></span>
+                <i></i><i></i>
+            </div>
+            <h3>Clássico</h3>
+            <p>Tradicional e profissional.</p>
+        </div>
+
+        <div class="modelo" data-modelo="moderno">
+            <div class="amostra moderno">
+                <span></span>
+                <i></i><i></i>
+                <span></span>
+                <i></i><i></i>
+            </div>
+            <h3>Moderno</h3>
+            <p>Elegante e contemporâneo.</p>
+        </div>
+
+        <div class="modelo" data-modelo="minimalista">
+            <div class="amostra minimalista">
+                <span></span>
+                <i></i><i></i>
+                <span></span>
+                <i></i><i></i>
+            </div>
+            <h3>Minimalista</h3>
+            <p>Simples e organizado.</p>
+        </div>
+
+        <div class="modelo" data-modelo="ats">
+            <div class="amostra ats">
+                <span></span>
+                <i></i><i></i><i></i>
+                <span></span>
+                <i></i><i></i>
+            </div>
+            <h3>ATS Profissional</h3>
+            <p>Ideal para sistemas de recrutamento.</p>
+        </div>
+
+    </div>
+</section>
+
+<section class="container" id="formulario">
+
+<div class="formulario">
+
+    <h2>Crie seu currículo</h2>
+    <p class="subtitulo">Preencha seus dados abaixo.</p>
+
+    <form id="formCurriculo">
+
+        <h3>01. Dados pessoais</h3>
+
+        <div class="campo">
+            <label for="nome">Nome completo</label>
+            <input type="text" id="nome"
+                placeholder="Digite seu nome" required>
+        </div>
+
+        <div class="linha">
+            <div class="campo">
+                <label for="email">E-mail</label>
+                <input type="email" id="email"
+                    placeholder="seu@email.com" required>
+            </div>
+
+            <div class="campo">
+                <label for="telefone">Telefone</label>
+                <input type="tel" id="telefone"
+                    placeholder="(00) 00000-0000">
+            </div>
+        </div>
+
+        <div class="campo">
+            <label for="endereco">Cidade e estado</label>
+            <input type="text" id="endereco"
+                placeholder="Ex: Natal - RN">
+        </div>
+
+        <h3>02. Objetivo profissional</h3>
+
+        <div class="campo">
+            <label for="objetivo">Objetivo</label>
+            <textarea id="objetivo"
+                placeholder="Descreva seu objetivo profissional..."></textarea>
+        </div>
+
+        <h3>03. Formação acadêmica</h3>
+
+        <div class="campo">
+            <label for="curso">Escolaridade / Curso</label>
+            <input type="text" id="curso"
+                placeholder="Ex: Ensino Médio completo">
+        </div>
+
+        <div class="linha">
+            <div class="campo">
+                <label for="instituicao">Instituição</label>
+                <input type="text" id="instituicao"
+                    placeholder="Nome da instituição">
+            </div>
+
+            <div class="campo">
+                <label for="ano">Ano de conclusão</label>
+                <input type="text" id="ano"
+                    placeholder="Ex: 2025">
+            </div>
+        </div>
+
+        <h3>04. Experiência profissional</h3>
+
+        <div class="campo">
+            <label for="empresa">Empresa</label>
+            <input type="text" id="empresa"
+                placeholder="Nome da empresa">
+        </div>
+
+        <div class="campo">
+            <label for="cargo">Cargo</label>
+            <input type="text" id="cargo"
+                placeholder="Seu cargo">
+        </div>
+
+        <div class="campo">
+            <label for="descricao">Descrição das atividades</label>
+            <textarea id="descricao"
+                placeholder="Descreva suas experiências..."></textarea>
+        </div>
+
+        <h3>05. Habilidades</h3>
+
+        <div class="campo">
+            <label for="habilidades">Suas habilidades</label>
+            <textarea id="habilidades"
+                placeholder="Ex: Comunicação, trabalho em equipe, informática..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-criar">
+            Criar meu currículo →
+        </button>
+
+    </form>
+</div>
+
+<aside class="destaque">
+    <div class="icone">✦</div>
+
+    <h2>Seu próximo capítulo começa com um bom currículo.</h2>
+
+    <p>
+        Organize suas informações, destaque seus talentos
+        e mostre ao mundo todo o seu potencial.
+    </p>
+
+    <div class="beneficio">✓ Fácil de preencher</div>
+    <div class="beneficio">✓ Quatro modelos disponíveis</div>
+    <div class="beneficio">✓ Salve seu currículo em PDF</div>
+</aside>
+
+</section>
+
+<section id="resultado">
+
+    <div class="topo-resultado">
+        <h2>Seu currículo está pronto!</h2>
+
+        <div class="botoes">
+            <button type="button" onclick="window.print()">
+                Baixar PDF ↓
+            </button>
+
+            <button type="button"
+                class="secundario"
+                onclick="voltarEditar()">
+                Editar
+            </button>
+        </div>
+    </div>
+
+    <div id="curriculo" class="curriculo classico">
+
+        <h1 id="rNome"></h1>
+        <p class="contato" id="rContato"></p>
+
+        <h2>OBJETIVO PROFISSIONAL</h2>
+        <p id="rObjetivo"></p>
+
+        <h2>FORMAÇÃO ACADÊMICA</h2>
+        <p id="rFormacao"></p>
+
+        <h2>EXPERIÊNCIA PROFISSIONAL</h2>
+        <p id="rExperiencia"></p>
+
+        <h2>HABILIDADES</h2>
+        <p id="rHabilidades"></p>
+
+    </div>
+
+</section>
+
+</main>
+
+<footer>
+    © 2026 BMME - Crie seu futuro profissional.
+</footer>
+
+<script>
+
+// SELEÇÃO DOS MODELOS
+
+let modeloSelecionado = "classico";
+
+const modelos = document.querySelectorAll(".modelo");
+
+modelos.forEach(modelo => {
+
+    modelo.addEventListener("click", function() {
+
+        modelos.forEach(item => {
+            item.classList.remove("ativo");
+        });
+
+        this.classList.add("ativo");
+
+        modeloSelecionado = this.dataset.modelo;
+
+        if (
+            document.getElementById("resultado").style.display === "block"
+        ) {
+            atualizarModelo();
+        }
+
+    });
+
+});
+
+// GERAR CURRÍCULO
+
+const formulario = document.getElementById("formCurriculo");
+
+formulario.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    function valor(id) {
+        return document.getElementById(id).value.trim();
+    }
+
+    function mostrar(id, texto) {
+        document.getElementById(id).textContent =
+            texto || "Não informado";
+    }
+
+    const nome = valor("nome");
+    const email = valor("email");
+    const telefone = valor("telefone");
+    const endereco = valor("endereco");
+
+    const objetivo = valor("objetivo");
+
+    const curso = valor("curso");
+    const instituicao = valor("instituicao");
+    const ano = valor("ano");
+
+    const empresa = valor("empresa");
+    const cargo = valor("cargo");
+    const descricao = valor("descricao");
+
+    const habilidades = valor("habilidades");
+
+    mostrar("rNome", nome);
+
+    mostrar(
+        "rContato",
+        [email, telefone, endereco]
+            .filter(Boolean)
+            .join(" | ")
+    );
+
+    mostrar("rObjetivo", objetivo);
+
+    mostrar(
+        "rFormacao",
+        [curso, instituicao, ano]
+            .filter(Boolean)
+            .join("\n")
+    );
+
+    mostrar(
+        "rExperiencia",
+        [cargo, empresa, descricao]
+            .filter(Boolean)
+            .join("\n")
+    );
+
+    mostrar("rHabilidades", habilidades);
+
+    atualizarModelo();
+
+    document.getElementById("resultado").style.display = "block";
+
+    document.getElementById("resultado").scrollIntoView({
+        behavior: "smooth"
+    });
+
+});
+
+// APLICAR MODELO
+
+function atualizarModelo() {
+
+    const curriculo = document.getElementById("curriculo");
+
+    curriculo.classList.remove(
+        "classico",
+        "moderno",
+        "minimalista",
+        "ats"
+    );
+
+    curriculo.classList.add(modeloSelecionado);
+
+}
+
+// VOLTAR PARA EDITAR
+
+function voltarEditar() {
+
+    document.getElementById("resultado").style.display = "none";
+
+    document.getElementById("formulario").scrollIntoView({
+        behavior: "smooth"
+    });
+
+}
+
+</script>
+
+</body>
+</html>
+
